@@ -1,6 +1,7 @@
 import React from "react";
-import { View, Text, Dimensions, Platform } from "react-native";
+import { Image, View, Text, Dimensions, Platform } from "react-native";
 import { Config } from "../config";
+import Download from "./section.download";
 const { height, width } = Dimensions.get("window");
 
 const ImageTitle = ({ title, text, titleSize }) => {
@@ -17,25 +18,32 @@ const ImageTitle = ({ title, text, titleSize }) => {
       style={{
         flex: 1,
         minHeight: height,
-        justifyContent: "center",
         alignItems: "center"
       }}
     >
-      <Text
-        style={{
-          fontWeight: "bold",
-          fontFamily:
-            Platform.OS === "web"
-              ? Config.layouts?.[0]?.style?.fontFamily.title
-              : undefined,
-          fontSize: titleSize || 50,
-          marginLeft: 12
-        }}
-      >
-        {title}
-      </Text>
+      <Image
+        source={require("../apps/_current/assets/bg.jpeg")}
+        style={{ width, height }}
+      />
 
-      <Text style={{ maxWidth: width * 0.6, margin: 20 }}>{text}</Text>
+      <View style={{ position: "absolute" }}>
+        <Text
+          style={{
+            marginTop: 100,
+            fontWeight: "bold",
+            fontFamily:
+              Platform.OS === "web"
+                ? Config.layouts?.[0]?.style?.fontFamily.title
+                : undefined,
+            fontSize: titleSize || 40,
+            marginLeft: 12
+          }}
+        >
+          {title}
+        </Text>
+
+        <Download absolute autoFocus />
+      </View>
     </View>
   );
 };

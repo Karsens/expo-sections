@@ -5,7 +5,6 @@ import { View, Linking } from "react-native";
  * A Privacy page
  */
 class MarkdownSection extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -29,7 +28,7 @@ class MarkdownSection extends React.Component {
   }
 
   render() {
-    const { markdown, linkTarget, url, style } = this.props;
+    const { style } = this.props;
     const { source } = this.state;
 
     return (
@@ -37,7 +36,7 @@ class MarkdownSection extends React.Component {
         <MarkdownView
           onLinkPress={link => {
             Linking.openURL(link);
-            console.log("wkwkwkw");
+            console.log("open link", link);
           }}
         >
           {source}
@@ -45,7 +44,6 @@ class MarkdownSection extends React.Component {
       </View>
     );
   }
-
 }
 
 export default MarkdownSection;

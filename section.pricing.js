@@ -1,20 +1,19 @@
 import React from "react";
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, Linking } from "react-native";
 import * as Icon from "@expo/vector-icons";
 import * as WebBrowser from "expo-web-browser";
+import { MarkdownView } from "react-native-markdown-view";
+
 import { Config } from "../config";
-/**
- * column for every package
- */
 
 const colors = ["green", "blue", "purple", "red"];
 
 const PRICING_WIDTH = 250;
 
 class Pricing extends React.Component {
-
   renderFeature = (feature: string, available: boolean) => (
     <View
+      key={feature}
       style={{ display: "flex", flexDirection: "row", alignItems: "center" }}
     >
       <Icon.SimpleLineIcons
@@ -25,7 +24,6 @@ class Pricing extends React.Component {
     </View>
   );
 
-  // "1 0 auto",
   renderHeader(item, index) {
     const { titleFontSize, buttonTitle } = this.props;
     const color = item.color || colors[index % colors.length];
@@ -137,12 +135,13 @@ class Pricing extends React.Component {
   }
 
   render() {
-    const { pricing } = Config;
+    const { pricing, pricingNotes } = Config;
 
     return (
       <View>
         <View
           style={{
+            flex: 1,
             display: "flex",
             flexDirection: "row",
             flexWrap: "wrap"
@@ -164,10 +163,16 @@ class Pricing extends React.Component {
             </View>
           ))}
         </View>
+        <MarkdownView
+          onLinkPress={link => {
+            Linking.openURL(link);
+          }}
+        >
+          {pricingNotes}
+        </MarkdownView>
       </View>
     );
   }
-
 }
 
 export default Pricing;

@@ -5,7 +5,6 @@ import { removeSpacing } from "../util";
 import { MarkdownView } from "react-native-markdown-view";
 
 class ContactSection extends React.Component {
-
   renderAddress() {
     const { color } = this.props;
     return Config.address ? (
@@ -32,9 +31,13 @@ class ContactSection extends React.Component {
     const { addExtra } = this.props;
 
     const source = `
-✉️ [${Config.email}](mailto:${Config.email})
-📞 [${Config.phoneNumber}](tel:${removeSpacing(Config.phoneNumber)})
-**KVK** ${Config.kvk}`;
+    ${Config.email ? `✉️ [${Config.email}](mailto:${Config.email})` : ""}
+${
+  Config.phoneNumber
+    ? `📞 [${Config.phoneNumber}](tel:${removeSpacing(Config.phoneNumber)})`
+    : ""
+}
+    ${Config.kvk ? `**KVK** ${Config.kvk}` : ""}`;
 
     return addExtra ? (
       <MarkdownView
@@ -57,7 +60,6 @@ class ContactSection extends React.Component {
       </View>
     );
   }
-
 }
 
 export default ContactSection;

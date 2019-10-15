@@ -1,3 +1,6 @@
+/**
+ * responsibility: fetch all posts from ghost
+ */
 export const fetchGhost = (
   { slug, labelSlug, ghostLink, ghostKey },
   config
@@ -11,7 +14,7 @@ export const fetchGhost = (
     ? `${ghostLink}content/posts/slug/${config.slug}/?key=${ghostKey}`
     : `${ghostLink}content/posts/?key=${ghostKey}&limit=${
         config?.limit ? config.limit : "all"
-    }&filter=tags:${tags}`;
+      }&filter=tags:${tags}`;
 
   console.log("ghosturi", uri);
   return fetch(uri)

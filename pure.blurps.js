@@ -1,9 +1,6 @@
 import React from "react";
 import { View, Text, Platform, Image } from "react-native";
 
-import { Config } from "../config";
-
-const { blurps } = Config;
 const IMG_SIZE = 80;
 
 export type Blurp = {
@@ -15,7 +12,7 @@ export type Blurp = {
 /**
  * column for every package
  */
-const Blurps = () => {
+const Blurps = ({ blurps }: { blurps: Blurp[] }) => {
   const BLURP_WIDTH = 170;
   return blurps ? (
     <View>
@@ -60,7 +57,7 @@ const Blurps = () => {
                 }}
               >
                 <Image
-                  source={item.image}
+                  source={item.remoteImage}
                   style={{
                     alignSelf: "center",
                     width: IMG_SIZE,

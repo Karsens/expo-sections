@@ -15,13 +15,7 @@ const FeatureCard = ({ title, description }) => (
 /**
  * A component for a features section.
  */
-const Features = ({
-  title,
-  subtitle,
-  features,
-  image1,
-  noPhone
-}: FeaturesOptions) => {
+const Features = ({ title, subtitle, features }: FeaturesOptions) => {
   if (!features) {
     return (
       <View>

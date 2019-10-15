@@ -1,15 +1,21 @@
 type Props = DefaultScreenProps & {};
 
 import React from "react";
-import { View, Text, TouchableOpacity, Image, Platform } from "react-native";
+import {
+  Dimensions,
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  Platform
+} from "react-native";
 
 import { fetchGhost } from "./fetch.ghost";
 import { Config } from "../config";
 import { DefaultScreenProps } from "../types";
 import NavigationLink from "../expo-elements/navigation.link";
 
-// don't know if needed for reactnativeweb
-// import "whatwg-fetch"; // apparently, fetch isn't defined in safari on iOS otherwise!
+const { width } = Dimensions.get("window");
 
 const CARDSIZE = 300;
 
@@ -45,21 +51,6 @@ const cutOnWord = (
  * - Linking to scientific evidence
  * - Linking to books, maybe?
  *
- * This component is just presentational now. That's good.
- * I can make a wise wrapper that gets an api url
- * (and, optionally, a transformMap to transform wrong structures).
- * This wise thing, then gives the blogs to the presentational component.
- *
- * This presentational component can also present the same structure in different ways.
- *
- * - Grid view
- * - List view
- * - Just pictures
- * - Carousel, even
- *
- * In the end, it would be brilliant if people can even choose to subscribe
- * to different of these kind of feeds (by email, and by push notifications,
- * and by whatever). But let's not go there yet.
  */
 
 type Article = {
@@ -72,7 +63,6 @@ type Article = {
 };
 
 class Blog extends React.Component<Props> {
-
   state = {
     hover: null,
     mediumArticles: [],
@@ -127,10 +117,9 @@ class Blog extends React.Component<Props> {
     });
 
     const isIOS = Platform.OS === "ios";
-    const flexGoodForIOS = 1;
 
     return (
-      <View style={{ backgroundColor: "#f4f8fb" }}>
+      <View style={{ backgroundColor: "#f4f8fb", flex: 1 }}>
         <View>
           <Text>{title}</Text>
           {isLoading && <Text>Loading...</Text>}
@@ -163,14 +152,13 @@ class Blog extends React.Component<Props> {
                             flexDirection: "column",
                             backgroundColor: "white",
                             boxShadow: "2px 3px 1px #EEE",
-                            height: isIOS ? undefined : 500,
+                            height: isIOS ? undefined : 400,
                             borderRadius: 5
                           }}
                         >
                           {c.figure && (
                             <View
                               style={{
-                                flex: flexGoodForIOS,
                                 display: "flex",
                                 borderRadius: 20,
                                 backgroundColor: "transparent"
@@ -202,14 +190,17 @@ class Blog extends React.Component<Props> {
                           </Text>
 
                           {c.description ? (
-                            <View style={{ marginLeft: 10, marginRight: 10 }}>
+                            <View
+                              style={{
+                                marginLeft: 10,
+                                marginRight: 10
+                              }}
+                            >
                               <Text>
                                 {cutOnWord(c.description, 100, "...")}
                               </Text>
                             </View>
                           ) : null}
-
-                          <View style={{ flex: 1 }} />
                         </View>
                       </View>
                     </TouchableOpacity>
@@ -221,7 +212,6 @@ class Blog extends React.Component<Props> {
       </View>
     );
   }
-
 }
 
 export default Blog;

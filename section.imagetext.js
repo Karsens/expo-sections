@@ -2,16 +2,7 @@ import React from "react";
 import { MarkdownView } from "react-native-markdown-view";
 import { View, Text, Image, Linking } from "react-native";
 
-/**
- * In the end, this component should be able to render video's too. On mollie.com, jpg's change into video once the video is loaded. This should be doable.
- *
- * #todo
- * - [ ] Align picture right
- * - [ ] Add video mp4 prop & render it the way mollie does
- * - [ ] on mobile, text should always be below image. uniformity
- */
 class ImageTextSection extends React.Component {
-
   renderText(title, text) {
     return (
       <View
@@ -19,13 +10,20 @@ class ImageTextSection extends React.Component {
           flex: 1
         }}
       >
-        <View style={{ marginTop: 30, paddingLeft: 30, paddingRight: 30 }}>
-          <Text>{title}</Text>
+        <View
+          style={{
+            marginTop: 30,
+            paddingLeft: 30,
+            paddingRight: 30,
+            flex: 1,
+            justifyContent: "center"
+          }}
+        >
+          <Text style={{ fontWeight: "bold", fontSize: 25 }}>{title}</Text>
           <View style={{ marginTop: 10 }}>
             <MarkdownView
               onLinkPress={link => {
                 Linking.openURL(link);
-                console.log("wkwkwkw");
               }}
             >
               {text}
@@ -36,7 +34,7 @@ class ImageTextSection extends React.Component {
     );
   }
 
-  renderImage(image, title) {
+  renderImage(image) {
     return (
       <View
         style={{
@@ -45,7 +43,7 @@ class ImageTextSection extends React.Component {
           alignItems: "center"
         }}
       >
-        <Image source={image} width="100%" height="auto" />
+        <Image source={image} style={{ width: 300, height: 300 }} />
       </View>
     );
   }
@@ -55,7 +53,7 @@ class ImageTextSection extends React.Component {
 
     const textRender = this.renderText(title, text);
 
-    const imageRender = this.renderImage(image, title);
+    const imageRender = this.renderImage(image);
 
     const left = opposite ? textRender : imageRender;
     const right = opposite ? imageRender : textRender;
@@ -66,7 +64,7 @@ class ImageTextSection extends React.Component {
           display: "flex",
           flexDirection: "row",
           flexWrap: "wrap",
-          backgroundColor: opposite ? "#EEE" : undefined
+          backgroundColor: undefined
         }}
       >
         {left}
@@ -75,7 +73,6 @@ class ImageTextSection extends React.Component {
       </View>
     );
   }
-
 }
 
 export default ImageTextSection;
